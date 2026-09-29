@@ -8,7 +8,7 @@ cd "$ROOT"
 swift build -c release --arch arm64
 swift build -c release --arch x86_64
 
-APP="$ROOT/build/AirCardMac.app"
+APP="${AIRCARD_APP_OUTPUT:-$ROOT/build/AirCardMac.app}"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources/bin"
 

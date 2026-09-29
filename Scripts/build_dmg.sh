@@ -2,14 +2,11 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-"$ROOT/Scripts/build_app.sh"
-
-APP="$ROOT/build/AirCardMac.app"
-DMG="$ROOT/build/AirCardMac.dmg"
+DMG="${AIRCARD_DMG_OUTPUT:-$ROOT/build/AirCardMac.dmg}"
 STAGING="$(mktemp -d -t aircard-dmg.XXXXXX)"
 trap 'rm -rf "$STAGING"' EXIT
+AIRCARD_APP_OUTPUT="$STAGING/AirCardMac.app" "$ROOT/Scripts/build_app.sh"
 
-ditto --norsrc --noextattr --noqtn "$APP" "$STAGING/AirCardMac.app"
 xattr -cr "$STAGING/AirCardMac.app" 2>/dev/null || true
 for attribute in com.apple.FinderInfo com.apple.ResourceFork com.apple.fileprovider.fpfs#P com.apple.provenance; do
   xattr -dr "$attribute" "$STAGING/AirCardMac.app" 2>/dev/null || true
@@ -25,7 +22,6 @@ hdiutil create \
 
 rm -rf "$STAGING"
 trap - EXIT
-# The staged copy was already verified before hdiutil created the image. The
-# workspace provider can reattach Finder metadata to the original bundle
-# immediately after the copy, so avoid a redundant verification on "$APP".
+# Build and sign in the temporary staging directory, outside the synced
+# workspace, so FileProvider cannot reattach metadata while codesign seals it.
 echo "DMG listo: $DMG"

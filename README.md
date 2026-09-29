@@ -11,11 +11,10 @@ detección del iPhone, preparación de imágenes y escritura atómica.
 
 ## Idioma
 
-La app incluye español y portugués de Brasil (`pt-BR`). Para cambiar solo
-AirCard, abre **Ajustes del Sistema → General → Idioma y región → Aplicaciones**,
-añade AirCard y selecciona **Português (Brasil)**; luego cierra y vuelve a abrir
-la app. También seguirá el idioma preferido de macOS si no configuras uno por
-app.
+La app incluye inglés, español y portugués de Brasil (`pt-BR`), y selecciona
+automáticamente el idioma preferido de macOS. Para cambiar solo AirCard, abre
+**Ajustes del Sistema → General → Idioma y región → Aplicaciones**, añade AirCard
+y elige el idioma; luego cierra y vuelve a abrir la app.
 
 ## Ejecutar
 
